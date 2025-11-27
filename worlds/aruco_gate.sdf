@@ -2,9 +2,9 @@
 <sdf version="1.9">
   <world name="aruco">
     <physics type="ode">
-      <max_step_size>0.01</max_step_size>
+      <max_step_size>0.004</max_step_size>
       <real_time_factor>1.0</real_time_factor>
-      <real_time_update_rate>100</real_time_update_rate>
+      <real_time_update_rate>250</real_time_update_rate>
     </physics>
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
@@ -13,7 +13,7 @@
       <grid>false</grid>
       <ambient>0.4 0.4 0.4 1</ambient>
       <background>0.7 0.7 0.7 1</background>
-      <shadows>false</shadows>
+      <shadows>true</shadows>
     </scene>
     <model name="ground_plane">
       <static>true</static>
@@ -66,7 +66,7 @@
     </model>
     <light name="sunUTC" type="directional">
       <pose>0 0 500 0 -0 0</pose>
-      <cast_shadows>false</cast_shadows>
+      <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
       <direction>0.001 0.625 -0.78</direction>
       <diffuse>0.904 0.904 0.904 1</diffuse>
@@ -83,88 +83,133 @@
         <falloff>0</falloff>
       </spot>
     </light>
+
+    <model name="gate">
+      <static>true</static>
+      
+      <link name="left_post">
+        <pose>2 -1.0 3.0 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 0.2 2.0</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 0.2 2.0</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+            <specular>0.4 0.4 0.4 1</specular>
+          </material>
+        </visual>
+      </link>
+      
+      <link name="right_post">
+        <pose>2 1.0 3.0 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 0.2 2.0</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 0.2 2.0</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+            <specular>0.4 0.4 0.4 1</specular>
+          </material>
+        </visual>
+      </link>
+      
+      <link name="top_bar">
+        <pose>2 0 4.0 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 2.2 0.2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 2.2 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+            <specular>0.4 0.4 0.4 1</specular>
+          </material>
+        </visual>
+      </link>
+      
+      <link name="bottom_bar">
+        <pose>2 0 2.1 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 2 0.2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 2 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+            <specular>0.4 0.4 0.4 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <include>
+      <uri>model://arucotag/0</uri>
+      <pose>1.88 1.0 4.0 0 -1.5708 0</pose>
+      <name>aruco_top_left</name>
+    </include>
+
+    <include>
+      <uri>model://arucotag/1</uri>
+      <pose>1.88 -1.0 4.0 0 -1.5708 0</pose>
+      <name>aruco_top_right</name>
+    </include>
+
+    <include>
+      <uri>model://arucotag/2</uri>
+      <pose>1.88 1.0 2.1 0 -1.5708 0</pose>
+      <name>aruco_bottom_left</name>
+    </include>
+    
+    <include>
+      <uri>model://arucotag/3</uri>
+      <pose>1.88 -1.0 2.1 0 -1.5708 0</pose>
+      <name>aruco_bottom_right</name>
+    </include>
+    
     <spherical_coordinates>
       <surface_model>EARTH_WGS84</surface_model>
       <world_frame_orientation>ENU</world_frame_orientation>
       <latitude_deg>47.397971057728974</latitude_deg>
-      <longitude_deg> 8.546163739800146</longitude_deg>
+      <longitude_deg>8.546163739800146</longitude_deg>
       <elevation>0</elevation>
     </spherical_coordinates>
-
-    <!-- Corner Configuration: 2 Walls + Floor with ArUco Markers -->
-
-    <!-- Wall 1: Along X-axis (YZ plane at Y=0) -->
-    <!-- Wall extends: X=[0,1], Y=[-0.3,0], Z=[0,1] -->
-    <model name="wall_1">
-      <static>true</static>
-      <pose>0.5 -0.15 0.5 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.0 0.3 1.0</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1.0 0.3 1.0</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.7 0.7 1</ambient>
-            <diffuse>0.7 0.7 0.7 1</diffuse>
-            <specular>0.5 0.5 0.5 1</specular>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Wall 2: Along Y-axis (XZ plane at X=0) -->
-    <!-- Wall extends: X=[-0.3,0], Y=[0,1], Z=[0,1] -->
-    <model name="wall_2">
-      <static>true</static>
-      <pose>-0.15 0.5 0.5 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.3 1.0 1.0</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.3 1.0 1.0</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.7 0.7 1</ambient>
-            <diffuse>0.7 0.7 0.7 1</diffuse>
-            <specular>0.5 0.5 0.5 1</specular>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Marker 0: On Wall 1 surface at (0.5, 0, 0.5) facing +Y -->
-    <include>
-      <uri>model://arucotag/4</uri>
-      <pose>0.5 0.01 0.5 -1.5708 0 0</pose>
-    </include>
-
-    <!-- Marker 1: On Wall 2 surface at (0, 0.5, 0.5) facing +X -->
-    <include>
-      <uri>model://arucotag/5</uri>
-      <pose>0.01 0.5 0.5 1.5708 0 1.5708</pose>
-    </include>
-
-    <!-- Marker 2: On Floor at (0.5, 0.5, 0) facing +Z -->
-    <include>
-      <uri>model://arucotag/6</uri>
-      <pose>0.5 0.5 0.01 0 0 0</pose>
-    </include>
   </world>
 </sdf>
