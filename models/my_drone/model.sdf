@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="my_drone">
+    <static>false</static>
+
+    <!-- ============================== -->
+    <!--            BASE LINK           -->
+    <!-- ============================== -->
+    <link name="base_link">
+      <pose>0.0 0.0 0.05 0 0 0</pose>
+
+      <inertial>
+        <mass>0.409234</mass>
+        <inertia>
+          <ixx>0.001317</ixx>
+          <iyy>0.0009235</iyy>
+          <izz>0.001246</izz>
+          <ixy>-2.4434865e-05</ixy>
+          <ixz>6.922682e-06</ixz>
+          <iyz>-6.3751446e-05</iyz>
+        </inertia>
+      </inertial>
+
+      <visual name="base_visual">
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://my_drone/meshes/base_link_with_motors.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="base_collision">
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://my_drone/meshes/base_link_with_motors.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <!-- ============================== -->
+    <!--            ROTOR 0 (FR)        -->
+    <!-- ============================== -->
+    <link name="rotor_0">
+      <!-- ONLY the link has a pose (no pose in joint) -->
+      <pose>-0.069743 0.084925 0.077 0 0 -1.57</pose>
+
+      <inertial>
+        <mass>1e-5</mass>
+        <inertia>
+          <ixx>1e-9</ixx>
+          <iyy>1e-9</iyy>
+          <izz>1e-9</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rotor_0_visual">
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://my_drone/meshes/cw_prop.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="rotor_0_collision">
+        <geometry>
+          <box>
+            <size>0.279230769 0.0169230769 0.0008461538</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="rotor_0_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_0</child>
+      <!-- NO POSE HERE -->
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+    <!-- ============================== -->
+    <!--            ROTOR 1 (RL)        -->
+    <!-- ============================== -->
+    <link name="rotor_1">
+      <pose>0.069743 -0.084925 0.077 0 0 -1.57</pose>
+
+      <inertial>
+        <mass>1e-5</mass>
+        <inertia>
+          <ixx>1e-9</ixx>
+          <iyy>1e-9</iyy>
+          <izz>1e-9</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rotor_1_visual">
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://my_drone/meshes/cw_prop.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="rotor_1_collision">
+        <geometry>
+          <box>
+            <size>0.279230769 0.0169230769 0.0008461538</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="rotor_1_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+    <!-- ============================== -->
+    <!--            ROTOR 2 (FL)        -->
+    <!-- ============================== -->
+    <link name="rotor_2">
+      <pose>0.069743 0.084925 0.077 0 0 -1.57</pose>
+
+      <inertial>
+        <mass>1e-5</mass>
+        <inertia>
+          <ixx>1e-9</ixx>
+          <iyy>1e-9</iyy>
+          <izz>1e-9</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rotor_2_visual">
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://my_drone/meshes/cw_prop.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="rotor_2_collision">
+        <geometry>
+          <box>
+            <size>0.279230769 0.0169230769 0.0008461538</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="rotor_2_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+    <!-- ============================== -->
+    <!--            ROTOR 3 (RR)        -->
+    <!-- ============================== -->
+    <link name="rotor_3">
+      <pose>-0.069743 -0.084925 0.077 0 0 -1.57</pose>
+
+      <inertial>
+        <mass>1e-5</mass>
+        <inertia>
+          <ixx>1e-9</ixx>
+          <iyy>1e-9</iyy>
+          <izz>1e-9</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rotor_3_visual">
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://my_drone/meshes/cw_prop.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="rotor_3_collision">
+        <geometry>
+          <box>
+            <size>0.279230769 0.0169230769 0.0008461538</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="rotor_3_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+  </model>
+</sdf>
