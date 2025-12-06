@@ -1,0 +1,63 @@
+material ArucoGate/Marker0
+        {
+        technique
+        {
+        pass
+        {
+        texture_unit
+        {
+        texture aruco_marker_0.png
+        filtering none
+        scale 1.0 1.0
+        }
+        }
+        }
+        }
+
+material ArucoGate/Marker1
+        {
+        technique
+        {
+        pass
+        {
+        texture_unit
+        {
+        texture aruco_marker_1.png
+        filtering none
+        scale 1.0 1.0
+        }
+        }
+        }
+        }
+
+material ArucoGate/Marker2
+        {
+        technique
+        {
+        pass
+        {
+        texture_unit
+        {
+        texture aruco_marker_2.png
+        filtering none
+        scale 1.0 1.0
+        }
+        }
+        }
+        }
+
+material ArucoGate/Marker3
+        {
+        technique
+        {
+        pass
+        {
+        texture_unit
+        {
+        texture aruco_marker_3.png
+        filtering none
+        scale 1.0 1.0
+        }
+        }
+        }
+        }

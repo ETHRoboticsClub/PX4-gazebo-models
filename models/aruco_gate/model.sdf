@@ -1,0 +1,165 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+<model name="aruco_gate">
+<static>true</static>
+<link name="link">
+<visual name="visual_top">
+<pose>0 0 2.0 0 0 0</pose>
+<geometry>
+<box>
+<size>0.1 2.2 0.1</size> </box>
+</geometry>
+<material>
+<script>
+<name>Gazebo/Orange</name>
+<uri>file://media/materials/scripts/gazebo.material</uri>
+</script>
+</material>
+</visual>
+<collision name="collision_top">
+<pose>0 0 2.0 0 0 0</pose>
+<geometry>
+<box><size>0.1 2.2 0.1</size></box>
+</geometry>
+</collision>
+
+<visual name="visual_bottom">
+<pose>0 0 0.05 0 0 0</pose>
+<geometry>
+<box><size>0.1 2.2 0.1</size></box>
+</geometry>
+<material>
+<script>
+<name>Gazebo/Orange</name>
+<uri>file://media/materials/scripts/gazebo.material</uri>
+</script>
+</material>
+</visual>
+<collision name="collision_bottom">
+<pose>0 0 0.05 0 0 0</pose>
+<geometry>
+<box><size>0.1 2.2 0.1</size></box>
+</geometry>
+</collision>
+
+<visual name="visual_left">
+<pose>0 1.05 1.025 0 0 0</pose>
+<geometry>
+<box><size>0.1 0.1 1.85</size></box>
+</geometry>
+<material>
+<script>
+<name>Gazebo/Orange</name>
+<uri>file://media/materials/scripts/gazebo.material</uri>
+</script>
+</material>
+</visual>
+<collision name="collision_left">
+<pose>0 1.05 1.025 0 0 0</pose>
+<geometry>
+<box><size>0.1 0.1 1.85</size></box>
+</geometry>
+</collision>
+
+<visual name="visual_right">
+<pose>0 -1.05 1.025 0 0 0</pose>
+<geometry>
+<box><size>0.1 0.1 1.85</size></box>
+</geometry>
+<material>
+<script>
+<name>Gazebo/Orange</name>
+<uri>file://media/materials/scripts/gazebo.material</uri>
+</script>
+</material>
+</visual>
+<collision name="collision_right">
+<pose>0 -1.05 1.025 0 0 0</pose>
+<geometry>
+<box><size>0.1 0.1 1.85</size></box>
+</geometry>
+</collision>
+
+<visual name="marker_TL">
+<pose>0.06 0.85 1.8 0 -1.57 0</pose>
+<geometry>
+<plane>
+<normal>0 0 1</normal>
+<size>0.3 0.3</size>
+</plane>
+</geometry>
+<material>
+<diffuse>1 1 1 1</diffuse>
+<specular>0.1 0.1 0.1 1</specular>
+<double_sided>true</double_sided>
+<pbr>
+<metal>
+<albedo_map>model://aruco_gate/materials/textures/aruco_marker_0.png</albedo_map>
+</metal>
+</pbr>
+</material>
+</visual>
+
+<visual name="marker_TR">
+<pose>0.06 -0.85 1.8 0 -1.57 0</pose>
+<geometry>
+<plane>
+<normal>0 0 1</normal>
+<size>0.3 0.3</size>
+</plane>
+</geometry>
+<material>
+<diffuse>1 1 1 1</diffuse>
+<specular>0.1 0.1 0.1 1</specular>
+<double_sided>true</double_sided>
+<pbr>
+<metal>
+<albedo_map>model://aruco_gate/materials/textures/aruco_marker_1.png</albedo_map>
+</metal>
+</pbr>
+</material>
+</visual>
+
+<visual name="marker_BR">
+<pose>0.06 -0.85 0.25 0 -1.57 0</pose>
+<geometry>
+<plane>
+<normal>0 0 1</normal>
+<size>0.3 0.3</size>
+</plane>
+</geometry>
+<material>
+<diffuse>1 1 1 1</diffuse>
+<specular>0.1 0.1 0.1 1</specular>
+<double_sided>true</double_sided>
+<pbr>
+<metal>
+<albedo_map>model://aruco_gate/materials/textures/aruco_marker_2.png</albedo_map>
+</metal>
+</pbr>
+</material>
+</visual>
+
+<visual name="marker_BL">
+<pose>0.06 0.85 0.25 0 -1.57 0</pose>
+<geometry>
+<plane>
+<normal>0 0 1</normal>
+<size>0.3 0.3</size>
+</plane>
+</geometry>
+<material>
+<diffuse>1 1 1 1</diffuse>
+<specular>0.1 0.1 0.1 1</specular>
+<double_sided>true</double_sided>
+<pbr>
+<metal>
+<albedo_map>model://aruco_gate/materials/textures/aruco_marker_3.png</albedo_map>
+</metal>
+</pbr>
+</material>
+</visual>
+
+</link>
+</model>
+</sdf>
