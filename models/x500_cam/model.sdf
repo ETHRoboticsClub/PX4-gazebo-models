@@ -22,7 +22,7 @@
 
       <sensor name="front_camera" type="camera">
         <always_on>true</always_on>
-        <update_rate>30</update_rate>
+        <update_rate>40</update_rate>
         <camera>
           <horizontal_fov>2.0</horizontal_fov>
           <image>
@@ -40,9 +40,16 @@
     </link>
 
     <joint name="front_camera_joint" type="fixed">
-      <parent>base_link</parent>      <!-- ✅ Correct parent -->
+      <parent>base_link</parent>
       <child>front_camera_link</child>
     </joint>
+
+    <!-- Odometry publisher for ground truth (ROS2 benchmarking) -->
+    <plugin
+      filename="gz-sim-odometry-publisher-system"
+      name="gz::sim::systems::OdometryPublisher">
+      <dimensions>3</dimensions>
+    </plugin>
 
   </model>
 </sdf>
