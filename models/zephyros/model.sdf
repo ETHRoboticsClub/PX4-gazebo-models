@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version='1.9'>
+  <model name='zephyros'>
+    <!-- Spawn slightly above ground -->
+    <pose>0 0 0.1 0 0 0</pose>
+    <self_collide>false</self_collide>
+    <static>false</static>
+
+    <!-- ================================================================== -->
+    <!-- Base link: body + sensors                                           -->
+    <!-- Total drone mass: 969 g. Props: 4x3.47 g = 13.9 g.                 -->
+    <!-- base_link mass = 969 - 13.9 = 955.1 g                              -->
+    <!-- Inertia: URDF frame-only values scaled by 955.1/441.8 = 2.162       -->
+    <!-- ================================================================== -->
+    <link name="base_link">
+      <inertial>
+        <!-- CoM offset from link origin -->
+        <pose>0.009239 0.003172 0.024879 0 0 0</pose>
+        <mass>0.9551</mass>
+        <inertia>
+          <ixx>0.002207</ixx>
+          <ixy>6.5e-06</ixy>
+          <ixz>-0.000225</ixz>
+          <iyy>0.003338</iyy>
+          <iyz>-2.2e-05</iyz>
+          <izz>0.002977</izz>
+        </inertia>
+      </inertial>
+      <gravity>true</gravity>
+      <velocity_decay />
+
+      <!-- Body mesh (STL from SolidWorks, scale mm→m) -->
+      <visual name="base_link_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://zephyros/drone_assembly_description/meshes/base_link.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.3 0.3 0.3 1</ambient>
+          <diffuse>0.5 0.5 0.5 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+
+      <!-- Simple box collision -->
+      <collision name="base_link_collision">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.19 0.16 0.05</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <min_depth>0.001</min_depth>
+              <max_vel>0</max_vel>
+            </ode>
+          </contact>
+          <friction><ode /></friction>
+        </surface>
+      </collision>
+
+      <!-- Sensors (copied from x500_base) -->
+      <sensor name="air_pressure_sensor" type="air_pressure">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>50</update_rate>
+        <air_pressure>
+          <pressure>
+            <noise type="gaussian">
+              <mean>0</mean>
+              <stddev>3</stddev>
+            </noise>
+          </pressure>
+        </air_pressure>
+      </sensor>
+
+      <sensor name="magnetometer_sensor" type="magnetometer">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+        <magnetometer>
+          <x><noise type="gaussian"><stddev>0.0001</stddev></noise></x>
+          <y><noise type="gaussian"><stddev>0.0001</stddev></noise></y>
+          <z><noise type="gaussian"><stddev>0.0001</stddev></noise></z>
+        </magnetometer>
+      </sensor>
+
+      <sensor name="imu_sensor" type="imu">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>250</update_rate>
+        <imu>
+          <angular_velocity>
+            <x><noise type="gaussian"><mean>0.0</mean><stddev>0.0008726646</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0.0</mean><stddev>0.0008726646</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0.0</mean><stddev>0.0008726646</stddev></noise></z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x><noise type="gaussian"><mean>0.0</mean><stddev>0.00637</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0.0</mean><stddev>0.00637</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0.0</mean><stddev>0.00686</stddev></noise></z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+
+      <sensor name="navsat_sensor" type="navsat">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+      </sensor>
+    </link>
+
+    <!-- ================================================================== -->
+    <!-- rotor_0: Front-Right, CCW                                          -->
+    <!-- URDF joint "Revolute 16" (FR): (0.088431, 0.072039, 0.040514)      -->
+    <!-- Gazebo ENU (y-left): x=+0.0884, y=-0.0720                          -->
+    <!-- ================================================================== -->
+    <link name="rotor_0">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <velocity_decay />
+      <pose>0.088431 -0.072039 0.040514 0 0 0</pose>
+      <inertial>
+        <mass>0.0034727520528517086</mass>
+        <inertia>
+          <ixx>1e-06</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>1e-06</iyy><iyz>0</iyz>
+          <izz>2e-06</izz>
+        </inertia>
+      </inertial>
+      <visual name="rotor_0_visual">
+        <!-- Cylinder approximating a 5-inch prop disk -->
+        <pose>0 0 0.003 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.0635</radius><length>0.003</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.8 0.6</ambient>
+          <diffuse>0.1 0.1 0.8 0.6</diffuse>
+        </material>
+      </visual>
+      <collision name="rotor_0_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.0635</radius><length>0.003</length></cylinder>
+        </geometry>
+        <surface>
+          <contact><ode><min_depth>0.001</min_depth><max_vel>0</max_vel></ode></contact>
+          <friction><ode /></friction>
+        </surface>
+      </collision>
+    </link>
+
+    <joint name="rotor_0_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_0</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e+16</lower><upper>1e+16</upper></limit>
+        <dynamics><spring_reference>0</spring_reference><spring_stiffness>0</spring_stiffness></dynamics>
+      </axis>
+    </joint>
+
+    <!-- ================================================================== -->
+    <!-- rotor_1: Back-Left, CCW                                            -->
+    <!-- URDF joint "Revolute 17" (BL): (-0.082176, -0.068017, 0.040514)    -->
+    <!-- Gazebo ENU (y-left): x=-0.0822, y=+0.0680                          -->
+    <!-- ================================================================== -->
+    <link name="rotor_1">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <velocity_decay />
+      <pose>-0.082176 0.068017 0.040514 0 0 0</pose>
+      <inertial>
+        <mass>0.0034727520528517086</mass>
+        <inertia>
+          <ixx>1e-06</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>1e-06</iyy><iyz>0</iyz>
+          <izz>2e-06</izz>
+        </inertia>
+      </inertial>
+      <visual name="rotor_1_visual">
+        <pose>0 0 0.003 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.0635</radius><length>0.003</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.8 0.6</ambient>
+          <diffuse>0.1 0.1 0.8 0.6</diffuse>
+        </material>
+      </visual>
+      <collision name="rotor_1_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.0635</radius><length>0.003</length></cylinder>
+        </geometry>
+        <surface>
+          <contact><ode><min_depth>0.001</min_depth><max_vel>0</max_vel></ode></contact>
+          <friction><ode /></friction>
+        </surface>
+      </collision>
+    </link>
+
+    <joint name="rotor_1_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e+16</lower><upper>1e+16</upper></limit>
+        <dynamics><spring_reference>0</spring_reference><spring_stiffness>0</spring_stiffness></dynamics>
+      </axis>
+    </joint>
+
+    <!-- ================================================================== -->
+    <!-- rotor_2: Front-Left, CW                                            -->
+    <!-- URDF joint "Revolute 15" (FL): (0.088628, -0.068017, 0.040514)     -->
+    <!-- Gazebo ENU (y-left): x=+0.0886, y=+0.0680                          -->
+    <!-- ================================================================== -->
+    <link name="rotor_2">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <velocity_decay />
+      <pose>0.088628 0.068017 0.040514 0 0 0</pose>
+      <inertial>
+        <mass>0.0034727457217575432</mass>
+        <inertia>
+          <ixx>1e-06</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>1e-06</iyy><iyz>0</iyz>
+          <izz>2e-06</izz>
+        </inertia>
+      </inertial>
+      <visual name="rotor_2_visual">
+        <pose>0 0 0.003 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.0635</radius><length>0.003</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>0.8 0.1 0.1 0.6</ambient>
+          <diffuse>0.8 0.1 0.1 0.6</diffuse>
+        </material>
+      </visual>
+      <collision name="rotor_2_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.0635</radius><length>0.003</length></cylinder>
+        </geometry>
+        <surface>
+          <contact><ode><min_depth>0.001</min_depth><max_vel>0</max_vel></ode></contact>
+          <friction><ode /></friction>
+        </surface>
+      </collision>
+    </link>
+
+    <joint name="rotor_2_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e+16</lower><upper>1e+16</upper></limit>
+        <dynamics><spring_reference>0</spring_reference><spring_stiffness>0</spring_stiffness></dynamics>
+      </axis>
+    </joint>
+
+    <!-- ================================================================== -->
+    <!-- rotor_3: Back-Right, CW                                            -->
+    <!-- URDF joint "Revolute 18" (BR): (-0.081841, 0.071798, 0.040514)     -->
+    <!-- Gazebo ENU (y-left): x=-0.0818, y=-0.0718                          -->
+    <!-- ================================================================== -->
+    <link name="rotor_3">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <velocity_decay />
+      <pose>-0.081841 -0.071798 0.040514 0 0 0</pose>
+      <inertial>
+        <mass>0.0034727457075369107</mass>
+        <inertia>
+          <ixx>1e-06</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>1e-06</iyy><iyz>0</iyz>
+          <izz>2e-06</izz>
+        </inertia>
+      </inertial>
+      <visual name="rotor_3_visual">
+        <pose>0 0 0.003 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.0635</radius><length>0.003</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>0.8 0.1 0.1 0.6</ambient>
+          <diffuse>0.8 0.1 0.1 0.6</diffuse>
+        </material>
+      </visual>
+      <collision name="rotor_3_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.0635</radius><length>0.003</length></cylinder>
+        </geometry>
+        <surface>
+          <contact><ode><min_depth>0.001</min_depth><max_vel>0</max_vel></ode></contact>
+          <friction><ode /></friction>
+        </surface>
+      </collision>
+    </link>
+
+    <joint name="rotor_3_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e+16</lower><upper>1e+16</upper></limit>
+        <dynamics><spring_reference>0</spring_reference><spring_stiffness>0</spring_stiffness></dynamics>
+      </axis>
+    </joint>
+
+    <!-- ================================================================== -->
+    <!-- Motor plugins                                                       -->
+    <!-- Real specs: total mass 969 g, max total thrust 30.8 N              -->
+    <!--   max thrust/motor = 7.7 N, T/W = 30.8 / (0.969*9.81) = 3.24      -->
+    <!--   motorConstant = 7.7 / 1500^2 = 3.422e-6                          -->
+    <!--   hover ω ≈ 835 rad/s → MPC_THR_HOVER ≈ 0.53                       -->
+    <!-- ================================================================== -->
+
+    <!-- rotor_0: Front-Right, CCW -->
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_0_joint</jointName>
+      <linkName>rotor_0</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1500</maxRotVelocity>
+      <motorConstant>3.422e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>0</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+
+    <!-- rotor_1: Back-Left, CCW -->
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_1_joint</jointName>
+      <linkName>rotor_1</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1500</maxRotVelocity>
+      <motorConstant>3.422e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>1</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+
+    <!-- rotor_2: Front-Left, CW -->
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_2_joint</jointName>
+      <linkName>rotor_2</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1500</maxRotVelocity>
+      <motorConstant>3.422e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>2</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+
+    <!-- rotor_3: Back-Right, CW -->
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_3_joint</jointName>
+      <linkName>rotor_3</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1500</maxRotVelocity>
+      <motorConstant>3.422e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>3</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+
+  </model>
+</sdf>

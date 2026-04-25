@@ -1,0 +1,140 @@
+<?xml version="1.0" ?>
+<robot name="Drone-assembly-into-urdf-conversion" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find drone_assembly_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find drone_assembly_description)/urdf/Drone-assembly-into-urdf-conversion.trans" />
+<xacro:include filename="$(find drone_assembly_description)/urdf/Drone-assembly-into-urdf-conversion.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.009238554223594299 0.0031720304092431296 0.024879380984984652" rpy="0 0 0"/>
+    <mass value="0.4418038695669927"/>
+    <inertia ixx="0.001021" iyy="0.001544" izz="0.001377" ixy="3e-06" iyz="-1e-05" ixz="-0.000104"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FL-5-inch-CW-prop_1_1_1">
+  <inertial>
+    <origin xyz="-4.954987216920781e-07 1.1728228729718237e-06 0.0049229474950758245" rpy="0 0 0"/>
+    <mass value="0.0034727457217575432"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="2e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.088628 0.068017 -0.040514" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/FL-5-inch-CW-prop_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.088628 0.068017 -0.040514" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/FL-5-inch-CW-prop_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FR-5-inch-CCW-prop_1_1_1">
+  <inertial>
+    <origin xyz="2.1208467563677003e-06 -1.0094753889744457e-07 0.00492294826402425" rpy="0 0 0"/>
+    <mass value="0.00347275205285292"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="2e-06" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.088431 -0.072039 -0.040514" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/FR-5-inch-CCW-prop_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.088431 -0.072039 -0.040514" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/FR-5-inch-CCW-prop_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="BL-5-inch-CCW-prop_1_1_1">
+  <inertial>
+    <origin xyz="1.6896728732007649e-06 -4.6309921052090086e-07 0.004922948264024916" rpy="0 0 0"/>
+    <mass value="0.0034727520528517086"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="2e-06" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.082176 0.068017 -0.040514" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/BL-5-inch-CCW-prop_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.082176 0.068017 -0.040514" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/BL-5-inch-CCW-prop_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="BR-5-inch-CW-prop_1_1_1">
+  <inertial>
+    <origin xyz="5.7189728425166564e-08 1.2673309276733935e-06 0.004922947500933514" rpy="0 0 0"/>
+    <mass value="0.0034727457075369107"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="2e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.081841 -0.071798 -0.040514" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/BR-5-inch-CW-prop_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.081841 -0.071798 -0.040514" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://drone_assembly_description/meshes/BR-5-inch-CW-prop_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolute 15" type="continuous">
+  <origin xyz="0.088628 -0.068017 0.040514" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="FL-5-inch-CW-prop_1_1_1"/>
+  <axis xyz="0.0 -0.0 1.0"/>
+</joint>
+
+<joint name="Revolute 16" type="continuous">
+  <origin xyz="0.088431 0.072039 0.040514" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="FR-5-inch-CCW-prop_1_1_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+
+<joint name="Revolute 17" type="continuous">
+  <origin xyz="-0.082176 -0.068017 0.040514" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="BL-5-inch-CCW-prop_1_1_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+
+<joint name="Revolute 18" type="continuous">
+  <origin xyz="-0.081841 0.071798 0.040514" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="BR-5-inch-CW-prop_1_1_1"/>
+  <axis xyz="0.0 -0.0 1.0"/>
+</joint>
+
+</robot>
